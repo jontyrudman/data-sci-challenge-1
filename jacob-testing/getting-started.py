@@ -32,7 +32,7 @@ def wrapped():
     model = ModelWrapper(layers)
     model.build()
 
-    model.train(x_train, y_train, 5)
+    model.train(x_train, y_train)
 
     accuracy = model.getAccuracy(x_test, y_test)
     print(f"\nTest accuracy = {accuracy}")

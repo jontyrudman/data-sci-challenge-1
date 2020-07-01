@@ -1,4 +1,5 @@
 import tensorflow as tf
+import time
 
 class ModelWrapper:
     """A wrapper for creating tensorflow sequential models."""
@@ -31,17 +32,47 @@ class ModelWrapper:
 
         self.model.compile(optimizer=compile_opt, loss=compile_loss, metrics=compile_metrics)
 
-    def train(self, x, y, epochs):
+    def train(self, x, y, epochs=5):
         """
         A simple way to train the model.
 
         Args:
         - x: The input training data.
         - y: The output training data.
-        - epochs: The number of iterations of training.
+        - (Optional) epochs: The number of iterations of training.
         """
 
         self.model.fit(x=x, y=y, epochs=epochs)
+
+    def benchmark(self, x, y, iterations=5, train_epochs=1):
+        """
+        Runs the training for the current model a number of times to gain an
+        understanding of how long the training takes.
+
+        Args:
+        - x: The input training data.
+        - y: The output training data.
+        - (Optional) iterations: The number of times to run the training.
+        - (Optional) train_epochs: The number of iterations within each
+          training cycle.
+        """
+
+        tf.keras.backend.clear_session() # make sure model is blank
+        times = []
+        accuracies = []
+
+        for _ in range(iterations):
+            self.build()
+            start = time.time()
+            self.train(x, y, train_epochs)
+            end = time.time()
+
+            times.append(end - start)
+            accuracies.append(self.getAccuracy())
+
+            tf.keras.backend.clear_session()
+        
+        return (times, accuracies)
 
     def getAccuracy(self, x, y) -> float:
         """
