@@ -68,7 +68,7 @@ class ModelWrapper:
             end = time.time()
 
             times.append(end - start)
-            accuracies.append(self.getAccuracy())
+            accuracies.append(self.getAccuracy(x, y))
 
             tf.keras.backend.clear_session()
         
