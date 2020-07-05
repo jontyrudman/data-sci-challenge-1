@@ -80,4 +80,4 @@ maximiser = linearRegression(options, yValues)
 
 allOut = list(map(maximiser, range(151)))
 
-print(f'The optimum number of logits/neurons for the hidden layer is {tf.argmax(allOut) + 1}')
+print(f'The optimum number of logits/neurons for the hidden layer is {tf.argmax(allOut)}')
