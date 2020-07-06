@@ -16,3 +16,5 @@
 # Environment folder and bytecode
 /env/
 *.pyc
+
+.vscode/
