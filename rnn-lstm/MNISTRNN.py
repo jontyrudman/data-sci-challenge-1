@@ -11,10 +11,10 @@ Repository: https://github.com/ar-ms/lstm-mnist
 # Imports
 import sys
 
-from tensorflow.examples.tutorials.mnist import input_data
-from keras.models import Sequential
-from keras.layers import LSTM, Dense
-from keras.models import load_model
+from tensorflow.keras import datasets
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense
+from tensorflow.keras.models import load_model
 import numpy as np
 
 
@@ -41,7 +41,7 @@ class MnistLSTMClassifier(object):
                       metrics=['accuracy'])
 
     def __load_data(self):
-        self.mnist = input_data.read_data_sets("mnist", one_hot=True)
+        self.mnist = datasets.mnist.load_data()
         self._data_loaded = True
 
     def train(self, save_model=False):
