@@ -20,18 +20,22 @@ def init():
 
 def preprocess_normalise(train, test):
     train, test = train / 255.0, test / 255.0
+    return train, test
+
+def reshape(train, test):
     train = train.reshape(train.shape[0], 28, 28, 1)
     test = test.reshape(test.shape[0], 28, 28, 1)
     return train, test
 
 
-def preprocess_contrast(images):
-    for i in range(len(images)):
-        np_img = np.array(images[i])
+def preprocess_contrast(input_imgs):
+    imgs = []
+    for i in range(len(input_imgs)):
+        np_img = np.array(input_imgs[i])
         np_img[np_img > 0.5] = 1
         np_img[np_img <= 0.5] = 0
-        images[i] = np_img
-    return images
+        imgs += [np_img]
+    return imgs
 
 
 def create_model(size):
