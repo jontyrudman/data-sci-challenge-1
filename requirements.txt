@@ -2,3 +2,4 @@ tensorflow
 matplotlib
 opencv-python
 tkinter
+scikit-learn
